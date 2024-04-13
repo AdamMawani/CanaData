@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Read the CSV file
-data = pd.read_csv("C:/Users/adamm/Downloads/CanaData/census.csv", encoding='latin1')
+data = pd.read_csv("census.csv")
 
 # Explore the first few rows of the dataframe
 print(data.head())
