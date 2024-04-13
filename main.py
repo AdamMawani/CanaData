@@ -5,17 +5,6 @@ import seaborn as sns
 # Read the CSV file
 data = pd.read_csv("census.csv")
 
-# Explore the first few rows of the dataframe
-print(data.head())
-
-# Check for missing values
-print(data.isnull().sum())
-
-# Data cleaning (if necessary)
-# For this example, we assume the data is clean
-
-# Data analysis and visualization
-
 # Plot population distribution by age group
 plt.figure(figsize=(10, 6))
 sns.barplot(x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL", data=data[data["CHARACTERISTIC_ID"].between(9, 24)])
@@ -48,7 +37,6 @@ sns.pairplot(data)
 plt.title('Pairplot of Canada Census Data')
 plt.show()
 
-# Other advanced visualizations
 # Example 1: Heatmap to visualize correlations between numerical variables
 correlation_matrix = data.corr()
 plt.figure(figsize=(10, 8))
