@@ -9,3 +9,8 @@ CanaData is a project designed to analyze and visualize Canada's 2021 census dat
 
 ## Data Source
 Census Profile, 2021 Census of Population (Statistics Canada): https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/download-telecharger.cfm?Lang=E
+
+## Simple Graphs
+Automatically generates simple graphs based on categories presented in census data. For example, a simple graph of marital distribution:
+
+![Marital Status Distribution](MaritalStatusDistribution.png)
