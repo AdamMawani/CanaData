@@ -5,32 +5,34 @@ import seaborn as sns
 # Load the dataset with specified encoding
 data = pd.read_csv('census.csv')
 
+# Utility function for creating bar plots
+def plot_bar(data, x, y, title, xlabel, ylabel, rotation=45, ha='right', figsize=(10, 6)):
+    plt.figure(figsize=figsize)
+    sns.barplot(x=x, y=y, data=data)
+    plt.xticks(rotation=rotation, ha=ha)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.tight_layout()
+    plt.show()
+
 # Age Group Distribution
-plt.figure(figsize=(10, 6))
-sns.barplot(x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL", data=data[data["CHARACTERISTIC_ID"].between(9, 24)])
-plt.xticks(rotation=45, ha='right')
-plt.xlabel("Age Group")
-plt.ylabel("Population Count")
-plt.title("Age Group Distribution")
-plt.show()
+plot_bar(data=data[data["CHARACTERISTIC_ID"].between(9, 24)],
+         x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL",
+         title="Age Group Distribution",
+         xlabel="Age Group", ylabel="Population Count")
 
 # Marital Status Distribution
-plt.figure(figsize=(8, 6))
-sns.barplot(x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL", data=data[data["CHARACTERISTIC_ID"].isin([59, 60, 61])])
-plt.xticks(rotation=45, ha='right')
-plt.xlabel("Marital Status")
-plt.ylabel("Population Count")
-plt.title("Marital Status Distribution")
-plt.show()
+plot_bar(data=data[data["CHARACTERISTIC_ID"].isin([59, 60, 61])],
+         x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL",
+         title="Marital Status Distribution",
+         xlabel="Marital Status", ylabel="Population Count", figsize=(8, 6))
 
 # Dwelling Type Distribution
-plt.figure(figsize=(10, 6))
-sns.barplot(x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL", data=data[data["CHARACTERISTIC_ID"].between(42, 49)])
-plt.xticks(rotation=45, ha='right')
-plt.xlabel("Dwelling Type")
-plt.ylabel("Count")
-plt.title("Dwelling Type Distribution")
-plt.show()
+plot_bar(data=data[data["CHARACTERISTIC_ID"].between(42, 49)],
+         x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL",
+         title="Dwelling Type Distribution",
+         xlabel="Dwelling Type", ylabel="Count")
 
 # Pairplot of Canada Census Data
 sns.pairplot(data)
@@ -38,9 +40,8 @@ plt.suptitle('Pairplot of Canada Census Data', y=1.02)
 plt.show()
 
 # Correlation Matrix
-correlation_matrix = data.corr()
 plt.figure(figsize=(10, 8))
-sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+sns.heatmap(data.corr(), annot=True, cmap='coolwarm', fmt=".2f")
 plt.title('Correlation Matrix of Canada Census Data')
 plt.show()
 
@@ -62,31 +63,22 @@ plt.xticks(rotation=45)
 plt.show()
 
 # Gender Distribution
-plt.figure(figsize=(8, 6))
-sns.barplot(x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL", data=data[data["CHARACTERISTIC_ID"].isin([1, 2])])
-plt.xticks(rotation=45, ha='right')
-plt.xlabel("Gender")
-plt.ylabel("Population Count")
-plt.title("Gender Distribution")
-plt.show()
+plot_bar(data=data[data["CHARACTERISTIC_ID"].isin([1, 2])],
+         x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL",
+         title="Gender Distribution",
+         xlabel="Gender", ylabel="Population Count", rotation=0)
 
 # Employment Status Distribution
-plt.figure(figsize=(10, 6))
-sns.barplot(x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL", data=data[data["CHARACTERISTIC_ID"].between(25, 30)])
-plt.xticks(rotation=45, ha='right')
-plt.xlabel("Employment Status")
-plt.ylabel("Population Count")
-plt.title("Employment Status Distribution")
-plt.show()
+plot_bar(data=data[data["CHARACTERISTIC_ID"].between(25, 30)],
+         x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL",
+         title="Employment Status Distribution",
+         xlabel="Employment Status", ylabel="Population Count")
 
 # Education Level Distribution
-plt.figure(figsize=(10, 6))
-sns.barplot(x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL", data=data[data["CHARACTERISTIC_ID"].between(31, 36)])
-plt.xticks(rotation=45, ha='right')
-plt.xlabel("Education Level")
-plt.ylabel("Population Count")
-plt.title("Education Level Distribution")
-plt.show()
+plot_bar(data=data[data["CHARACTERISTIC_ID"].between(31, 36)],
+         x="CHARACTERISTIC_NAME", y="C1_COUNT_TOTAL",
+         title="Education Level Distribution",
+         xlabel="Education Level", ylabel="Population Count")
 
 # Scatter Plot of Age vs Income
 plt.figure(figsize=(10, 6))
@@ -97,7 +89,6 @@ plt.ylabel('Income')
 plt.show()
 
 # Line Plot of Population Growth Over Years
-# Ensure that 'year' is a column in your dataset
 if 'year' in data.columns:
     plt.figure(figsize=(10, 6))
     sns.lineplot(x='year', y='C1_COUNT_TOTAL', data=data)
@@ -107,7 +98,6 @@ if 'year' in data.columns:
     plt.show()
 
 # Box Plot of Age Distribution by Gender
-# Ensure that 'gender' is a column in your dataset
 if 'gender' in data.columns:
     plt.figure(figsize=(10, 6))
     sns.boxplot(x='gender', y='age', data=data)
@@ -117,7 +107,6 @@ if 'gender' in data.columns:
     plt.show()
 
 # Heatmap of Categorical Features
-# Replace 'another_categorical_column' with actual column name
 if 'another_categorical_column' in data.columns:
     categorical_columns = ['CHARACTERISTIC_NAME', 'another_categorical_column']
     pivot_table = data.pivot_table(index=categorical_columns[0], columns=categorical_columns[1], values='C1_COUNT_TOTAL', aggfunc='sum', fill_value=0)
